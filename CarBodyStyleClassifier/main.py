@@ -26,14 +26,15 @@ def main():
     (x_train, y_train), (x_test, y_test) = get_dataset()
     print('x_train shape: ', x_train.shape)
     print('y_train shape: ', y_train.shape)
-    print(x_train)
 
     input("proceed?")
 
     model = Model((x_train, y_train), (x_test, y_test), num_classes)
 
     model.create_model()
+
     model.model.summary()
+
     model.train_model()
 
 

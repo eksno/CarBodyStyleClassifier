@@ -18,13 +18,14 @@ class Model:
         self.model = Sequential()
 
         # Input Layer
-        self.model.add(Conv2D(32, (3, 3), input_shape=(256, 256, 1)))
+        self.model.add(Conv2D(32, (3, 3), padding='same', input_shape=self.x_train.shape[1:]))
         self.model.add(Activation('relu'))
+        self.model.add(MaxPooling2D(pool_size=(2, 2), strides=2))
 
         # Hidden Layers
-        self.model.add(Conv2D(64, (3, 3)))
+        self.model.add(Conv2D(64, (3, 3), padding='same'))
         self.model.add(Activation('relu'))
-        self.model.add(MaxPooling2D(pool_size=(2, 2)))
+        self.model.add(MaxPooling2D(pool_size=(2, 2), strides=2))
         self.model.add(Dropout(0.25))
 
         self.model.add(Flatten())
@@ -39,10 +40,10 @@ class Model:
 
         # Compile the model
         self.model.compile(optimizer='adam',
-                      loss="categorical_crossentropy",
-                      metrics=['accuracy'])
+                           loss="categorical_crossentropy",
+                           metrics=['accuracy'])
 
-    def train_model(self, batch_size=128, epochs=12):
+    def train_model(self, batch_size=2, epochs=12):
         self.model.fit(self.x_train, self.y_train,
                        batch_size=batch_size,
                        epochs=epochs,
