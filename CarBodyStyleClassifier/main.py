@@ -26,12 +26,15 @@ def main():
     (x_train, y_train), (x_test, y_test) = get_dataset()
     print('x_train shape: ', x_train.shape)
     print('y_train shape: ', y_train.shape)
-    print(type(x_train))
+    print(x_train)
 
-    #model = Model((x_train, y_train), (x_test, y_test), num_classes)
-    #
-    #model.create_model()
-    #model.train_model()
+    input("proceed?")
+
+    model = Model((x_train, y_train), (x_test, y_test), num_classes)
+
+    model.create_model()
+    model.model.summary()
+    model.train_model()
 
 
 def get_dataset():

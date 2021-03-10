@@ -19,9 +19,14 @@ class ImageDataset:
         x_train, y_train = iter(self.train_ds).next()
         x_test, y_test = iter(self.test_ds).next()
 
+        def rgb2gray(rgb):
+            return np.expand_dims(np.dot(rgb[..., :3], [0.2989, 0.5870, 0.1140]), axis=-1)
+
         def format_data(x, y):
             x = np.array(x)
             x.astype('float32')
+            
+            x = rgb2gray(x)
             x /= 255
 
             y = tf.keras.utils.to_categorical(y, self.num_classes)  # num classes

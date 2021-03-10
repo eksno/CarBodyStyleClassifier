@@ -18,7 +18,7 @@ class Model:
         self.model = Sequential()
 
         # Input Layer
-        self.model.add(Conv2D(32, (3, 3), input_shape=self.x_train.shape[1:]))
+        self.model.add(Conv2D(32, (3, 3), input_shape=(256, 256, 1)))
         self.model.add(Activation('relu'))
 
         # Hidden Layers
