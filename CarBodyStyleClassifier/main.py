@@ -27,9 +27,10 @@ def main():
     print('x_train shape: ', x_train.shape)
     print('y_train shape: ', y_train.shape)
 
+
     input("proceed?")
 
-    model = Model((x_train, y_train), (x_test, y_test), num_classes)
+    model = Model((x_train, y_train), (x_test, y_test))
 
     model.create_model()
 

@@ -4,13 +4,13 @@ from tensorflow.keras.layers import Dense, Dropout, Activation, Flatten, Conv2D,
 
 
 class Model:
-    def __init__(self, train, test, num_classes):
-        self.num_classes = num_classes
-
+    def __init__(self, train, test):
         self.x_train = train[0]
         self.y_train = train[1]
         self.x_test = test[0]
         self.y_test = test[1]
+
+        self.num_classes = self.y_train.shape[1]
 
         self.model = None
 
@@ -23,7 +23,9 @@ class Model:
         self.model.add(Activation('relu'))
         self.model.add(Dropout(0.5))
 
-        self.model.add(Dense(9, activation='softmax'))
+        # Output Layer
+        self.model.add(Dense(self.num_classes))
+        self.model.add(Activation('softmax'))
 
         # Compile the model
         self.model.compile(optimizer='adam',
@@ -49,7 +51,7 @@ class Model:
         self.model.add(Dropout(0.5))
 
         # Output Layer
-        self.model.add(Dense(self.num_classes))
+        self.model.add(Dense(9))
         self.model.add(Activation('softmax'))
 
         # Compile the model
