@@ -20,6 +20,7 @@ class ImageDataset:
         x_test, y_test = iter(self.test_ds).next()
 
         def rgb2gray(rgb):
+            # np.expand_dims(np.dot(rgb[..., :3], [0.2989, 0.5870, 0.1140]), axis=-1)
             return np.expand_dims(np.dot(rgb[..., :3], [0.2989, 0.5870, 0.1140]), axis=-1)
 
         def format_data(x, y):
@@ -38,10 +39,10 @@ class ImageDataset:
 
         return (x_train, y_train), (x_test, y_test)
 
-    def create_dataset(self, img_size=(256, 256), batch_size=128):
+    def create_dataset(self, img_size=(28, 28), batch_size=2000):
         self.train_ds = tf.keras.preprocessing.image_dataset_from_directory(
             self.data_dir,
-            validation_split=0.2,
+            validation_split=0.1,
             subset="training",
             seed=1020,
             image_size=img_size,
@@ -49,7 +50,7 @@ class ImageDataset:
 
         self.test_ds = tf.keras.preprocessing.image_dataset_from_directory(
             self.data_dir,
-            validation_split=0.2,
+            validation_split=0.1,
             subset="validation",
             seed=1020,
             image_size=img_size,
