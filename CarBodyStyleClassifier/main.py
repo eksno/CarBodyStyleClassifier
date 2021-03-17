@@ -21,12 +21,9 @@ if gpus:
 
 
 def main():
-    num_classes = 9
-
     (x_train, y_train), (x_test, y_test) = get_dataset()
     print('x_train shape: ', x_train.shape)
     print('y_train shape: ', y_train.shape)
-
 
     input("proceed?")
 
