@@ -25,8 +25,6 @@ def main():
     print('x_train shape: ', x_train.shape)
     print('y_train shape: ', y_train.shape)
 
-    input("proceed?")
-
     model = Model((x_train, y_train), (x_test, y_test))
 
     model.create_model()
@@ -38,6 +36,7 @@ def main():
 
 def get_dataset():
     src_dir = os.getcwd()
+
     raw_data_dir = Path(str(src_dir + '\\raw_dataset'))
     data_dir = Path(str(src_dir + '\\dataset'))
     dataset = ImageDataset(data_dir, raw_data_dir)
@@ -45,6 +44,7 @@ def get_dataset():
     # if input('reformat data (y, N)') == 'y':
     #     dataset.delete_formatted_data()
     #     dataset.format_raw()
+
 
     dataset.create_dataset()
     return dataset.get_formatted_data()

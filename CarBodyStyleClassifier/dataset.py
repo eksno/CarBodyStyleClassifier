@@ -27,7 +27,7 @@ class ImageDataset:
             x = np.array(x)
             x.astype('float32')
             
-            x = rgb2gray(x)
+            # x = rgb2gray(x)
             x /= 255
 
             y = tf.keras.utils.to_categorical(y, self.num_classes)  # num classes
@@ -39,7 +39,7 @@ class ImageDataset:
 
         return (x_train, y_train), (x_test, y_test)
 
-    def create_dataset(self, img_size=(128, 128), batch_size=5000):
+    def create_dataset(self, img_size=(128, 128), batch_size=10000):
         self.train_ds = tf.keras.preprocessing.image_dataset_from_directory(
             self.data_dir,
             validation_split=0.1,
