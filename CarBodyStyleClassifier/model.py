@@ -17,22 +17,15 @@ class Model:
     def create_model(self):
         self.model = Sequential()
 
+        """
         self.model.add(Flatten(input_shape=self.x_train.shape[1:]))
 
         self.model.add(Dense(128))
         self.model.add(Activation('relu'))
         self.model.add(Dropout(0.5))
-
-        # Output Layer
-        self.model.add(Dense(self.num_classes))
-        self.model.add(Activation('softmax'))
-
-        # Compile the model
-        self.model.compile(optimizer='adam',
-                           loss='categorical_crossentropy',
-                           metrics=['accuracy'])
-
         """
+
+        
         # Input Layer
         self.model.add(Conv2D(32, (3, 3), padding='same', input_shape=self.x_train.shape[1:]))
         self.model.add(Activation('relu'))
@@ -51,20 +44,21 @@ class Model:
         self.model.add(Dropout(0.5))
 
         # Output Layer
-        self.model.add(Dense(9))
+        self.model.add(Dense(self.num_classes))
         self.model.add(Activation('softmax'))
 
         # Compile the model
         self.model.compile(optimizer='adam',
-                           loss="categorical_crossentropy",
+                           loss='categorical_crossentropy',
                            metrics=['accuracy'])
-        """
+        
 
 
     def train_model(self, batch_size=1, epochs=12):
         self.model.fit(self.x_train, self.y_train,
                        epochs=epochs,
                        batch_size=batch_size,
+                       shuffle=True,
                        validation_data=(self.x_test, self.y_test))
 
         score = self.model.evaluate(self.x_test, self.y_test, verbose=0)

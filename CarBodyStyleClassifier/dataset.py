@@ -39,12 +39,13 @@ class ImageDataset:
 
         return (x_train, y_train), (x_test, y_test)
 
-    def create_dataset(self, img_size=(28, 28), batch_size=2000):
+    def create_dataset(self, img_size=(128, 128), batch_size=5000):
         self.train_ds = tf.keras.preprocessing.image_dataset_from_directory(
             self.data_dir,
             validation_split=0.1,
             subset="training",
             seed=1020,
+            shuffle=True,
             image_size=img_size,
             batch_size=batch_size)
 
@@ -53,6 +54,7 @@ class ImageDataset:
             validation_split=0.1,
             subset="validation",
             seed=1020,
+            shuffle=True,
             image_size=img_size,
             batch_size=batch_size)
 
