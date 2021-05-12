@@ -1,5 +1,8 @@
 dataset/
+dataset_lost/
+checkpoints/
 raw_dataset/
+test_images/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -21,25 +21,44 @@ if gpus:
 
 
 def main():
-    (x_train, y_train), (x_test, y_test) = get_dataset()
-    print('x_train shape: ', x_train.shape)
-    print('y_train shape: ', y_train.shape)
+    if input('train? (y, N)'):
+        (x_train, y_train), (x_test, y_test), samples = get_dataset(train=True)
+        print('x_train shape:', x_train.shape)
+        print('y_train shape:', y_train.shape)
+        print('sample shape:', samples.shape)
 
-    model = Model((x_train, y_train), (x_test, y_test))
+        model = Model((x_train, y_train), (x_test, y_test), samples)
 
-    model.create_model()
+        model.create_model()
 
-    model.model.summary()
+        model.model.summary()
 
-    model.train_model()
+        model.train_model()
+    if 'y' == input('pred? (y, N)'):
+        (x_train, y_train), (x_test, y_test), samples = get_dataset(train=False)
+        print('sample shape:', samples.shape)
+
+        model = Model((x_train, y_train), (x_test, y_test), samples)
+
+        model.create_model()
+
+        model.model.summary()
+
+        model.run_model()
 
 
-def get_dataset():
+def get_dataset(train=True):
     src_dir = os.getcwd()
 
-    raw_data_dir = Path(str(src_dir + '\\raw_dataset'))
-    data_dir = Path(str(src_dir + '\\dataset'))
-    dataset = ImageDataset(data_dir, raw_data_dir)
+    if train:
+        raw_data_dir = Path(str(src_dir + '\\raw_dataset'))
+        data_dir = Path(str(src_dir + '\\dataset'))
+    sample_dir = Path(str(src_dir + '\\test_images'))
+
+    if train:
+        dataset = ImageDataset(data_dir, raw_data_dir, sample_dir)
+    else:
+        dataset = ImageDataset(None, None, sample_dir)
 
     # if input('reformat data (y, N)') == 'y':
     #     dataset.delete_formatted_data()
